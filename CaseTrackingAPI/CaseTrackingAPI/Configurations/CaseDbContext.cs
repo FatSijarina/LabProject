@@ -15,7 +15,6 @@ namespace CaseTrackingAPI.Configurations
         public DbSet<DFile> Files { get; set; } = null!;
         public DbSet<PNG> PNGs { get; set; } = null!;
         public DbSet<PDF> PDFs { get; set; } = null!;
-<<<<<<< HEAD
         public DbSet<Statement> Statements { get; set; } = null!;
         public DbSet<BiologicalTrace> BiologicalTraces { get; set; } = null!;
         public DbSet<Evidence> Evidences { get; set; } = null!;
@@ -26,7 +25,5 @@ namespace CaseTrackingAPI.Configurations
         public DbSet<Suspect> Suspects { get; set; } = null!;
         public DbSet<Victim> Victims { get; set; } = null!;
 
-=======
->>>>>>> e1be0471d4a73c426d89b129ea8c067bb6e26980
     }
 }
