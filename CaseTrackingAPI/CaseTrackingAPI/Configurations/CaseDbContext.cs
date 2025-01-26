@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using CaseTrackingAPI.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CaseTrackingAPI.Configurations
 {
@@ -8,5 +9,11 @@ namespace CaseTrackingAPI.Configurations
         {
 
         }
+
+        public DbSet<DCase> Cases { get; set; } = null!;
+        public DbSet<DTask> Tasks { get; set; } = null!;
+        public DbSet<DFile> Files { get; set; } = null!;
+        public DbSet<PNG> PNGs { get; set; } = null!;
+        public DbSet<PDF> PDFs { get; set; } = null!;
     }
 }
