@@ -14,9 +14,11 @@ builder.Services.AddDbContext<CaseDbContext>(options =>
 
 builder.Services.AddCors(opt => {
     opt.AddPolicy("CorsPolicy", policy => {
-        policy.AllowAnyMethod().AllowCredentials().AllowAnyHeader().AllowAnyOrigin();
+        policy.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
     });
 });
+
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
