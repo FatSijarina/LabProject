@@ -1,4 +1,5 @@
-﻿using CaseTrackingAPI.Models;
+﻿using CaseTrackingAPI.DTOs.PersonsDTOs;
+using CaseTrackingAPI.Models;
 
 namespace CaseTrackingAPI.DTOs
 {
@@ -22,9 +23,9 @@ namespace CaseTrackingAPI.DTOs
         public string? Details { get; set; }
         public DateTime DateOpened { get; set; }
         public DateTime? DateClosed { get; set; }
-        /*public ICollection<ViktimaDTO>? Viktimat { get; set; }
-        public ICollection<DeshmitariDTO>? Deshmitaret { get; set; }
-        public ICollection<iDyshuariDTO>? TeDyshuarit { get; set; }*/
+        public ICollection<VictimDTO>? Victims { get; set; }
+        public ICollection<WitnessDTO>? Witnesses { get; set; }
+        public ICollection<SuspectDTO>? Suspects { get; set; }
         public ICollection<CaseTask>? CaseTasks { get; set; }
         public ICollection<DFile>? Files { get; set; }
     }
