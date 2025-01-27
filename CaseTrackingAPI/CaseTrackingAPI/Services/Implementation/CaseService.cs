@@ -3,6 +3,7 @@ using CaseTrackingAPI.Configurations;
 using CaseTrackingAPI.DTOs;
 using CaseTrackingAPI.Models;
 using CaseTrackingAPI.Services.Interfaces;
+using CaseTrackingAPI.Services.Interfaces.PersonsInterfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,11 +13,13 @@ namespace CaseTrackingAPI.Services.Implementation
     {
         private readonly IMapper _mapper;
         private readonly CaseDbContext _context;
+        private readonly IInvolvedParty _involvedParty;
 
-        public CaseService(IMapper mapper, CaseDbContext context)
+        public CaseService(IMapper mapper, CaseDbContext context, IInvolvedParty involvedParty)
         {
             _mapper = mapper;
             _context = context;
+            _involvedParty = involvedParty;
         }
 
         public async Task<ActionResult<List<GetCasesDetailsDTO>>> GetCases()
@@ -30,9 +33,9 @@ namespace CaseTrackingAPI.Services.Implementation
 
             var mappedCase = _mapper.Map<GetCaseDTO>(dCase);
 
-            /*mappedCase.Victims = await .GetViktimat(id);
-            mappedCase.Witnesses = await .GetDeshmitaret(id);
-            mappedCase.Suspects = await .GetTeDyshuarit(id);*/
+            mappedCase.Victims = await _involvedParty.GetVictims(id);
+            mappedCase.Witnesses = await _involvedParty.GetWitnesses(id);
+            mappedCase.Suspects = await _involvedParty.GetSuspects(id);
 
             return new OkObjectResult(mappedCase);
         }

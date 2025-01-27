@@ -58,10 +58,10 @@ namespace CaseTrackingAPI.Services.Implementation
             if (originalTask == null)
                 throw new ArgumentException("Task not found");
 
-            originalTask.Title = task.Title;
-            originalTask.Details = task.Details;
-            originalTask.Status = task.Status;
-            originalTask.DueDate = task.DueDate;
+            originalTask.Title = task.Title ?? originalTask.Title;
+            originalTask.Details = task.Details ?? originalTask.Details;
+            originalTask.Status = task.Status ?? originalTask.Status;
+            originalTask.DueDate = task.DueDate ?? originalTask.DueDate;
 
             _context.Tasks.Update(originalTask);
             await _context.SaveChangesAsync();

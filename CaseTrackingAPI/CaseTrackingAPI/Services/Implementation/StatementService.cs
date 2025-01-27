@@ -151,5 +151,4 @@ namespace CaseTrackingAPI.Services.Implementation
                 + $"{String.Join(" ", uniqueWords)}";
         }
     }
-
 }

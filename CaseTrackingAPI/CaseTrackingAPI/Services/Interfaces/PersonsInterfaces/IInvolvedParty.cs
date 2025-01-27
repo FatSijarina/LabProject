@@ -13,19 +13,5 @@ namespace CaseTrackingAPI.Services.Interfaces.PersonsInterfaces
         Task<ICollection<SuspectDTO>> GetSuspects(int caseId);
 
         Task<ICollection<VictimDTO>> GetVictims(int caseId);
-
-        Task<ActionResult<List<StatementDTO>>> GetStatementsOfPerson(int id);
-
-        Task<ActionResult> AddStatement(StatementDTO statementDTO);
-
-        Task<ActionResult> UpdateStatement(int id, UpdateStatementDTO updateStatementDTO);
-
-        Task<string> CompareStatements(int statement1Id, int statement2Id);
-
-        Task<ActionResult<List<BiologicalTraceDTO>>> GetBiologicalTracesOfPerson(int id);
-
-        Task<ActionResult> AddBiologicalTrace(BiologicalTraceDTO biologicalTraceDTO);
-
-        Task<ActionResult> UpdateBiologicalTrace(int id, UpdateBiologicalTraceDTO updateBiologicalTraceDTO);
     }
 }

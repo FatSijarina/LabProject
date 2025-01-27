@@ -14,9 +14,9 @@
 
     public class UpdateTaskDTO
     {
-        public string Title { get; set; } = null!;
-        public string Details { get; set; }
-        public bool Status { get; set; }
-        public DateTime DueDate { get; set; }
+        public string? Title { get; set; }
+        public string? Details { get; set; }
+        public bool? Status { get; set; }
+        public DateTime? DueDate { get; set; }
     }
 }

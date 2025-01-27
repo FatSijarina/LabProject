@@ -17,21 +17,11 @@
         {
             private readonly CaseDbContext _context;
             private readonly IMapper _mapper;
-            /*
-             * StatementService and BiologicalTraceService are instantiated in this class
-             * so that the existing code is not repeated.
-             * They are declared as class fields because they are used in more than one method
-             * so it is more effective to have them here.
-             */
-            private readonly StatementService statementService;
-            private readonly BiologicalTraceService biologicalTraceService;
 
             public InvolvedPartyService(CaseDbContext context, IMapper mapper)
             {
                 _context = context;
                 _mapper = mapper;
-                statementService = new StatementService(_context, _mapper);
-                biologicalTraceService = new BiologicalTraceService(_context, _mapper);
             }
 
             public async Task<ActionResult> DeletePerson(int id)
@@ -59,28 +49,6 @@
                 _mapper.Map<ICollection<VictimDTO>>(await _context.Victims
                                         .Where(p => p.CaseId == caseId)
                                         .ToListAsync());
-
-            public async Task<ActionResult<List<StatementDTO>>> GetStatementsOfPerson(int id) =>
-                await statementService.GetPersonStatements(id);
-
-            public async Task<ActionResult> AddStatement(StatementDTO statementDTO) =>
-                new OkObjectResult(await statementService.AddStatement(statementDTO));
-
-            public async Task<ActionResult> UpdateStatement(int id, UpdateStatementDTO updateStatementDTO) =>
-                new OkObjectResult(await statementService.UpdateStatement(id, updateStatementDTO));
-
-            public async Task<string> CompareStatements(int statement1Id, int statement2Id) =>
-                await statementService.CompareStatements(statement1Id, statement2Id);
-
-            public async Task<ActionResult<List<BiologicalTraceDTO>>> GetBiologicalTracesOfPerson(int id) =>
-                await biologicalTraceService.GetPersonTraces(id);
-
-            public async Task<ActionResult> AddBiologicalTrace(BiologicalTraceDTO biologicalTraceDTO) =>
-                new OkObjectResult(await biologicalTraceService.AddBiologicalTrace(biologicalTraceDTO));
-
-            public async Task<ActionResult> UpdateBiologicalTrace(int id, UpdateBiologicalTraceDTO updateBiologicalTraceDTO) =>
-                new OkObjectResult(await biologicalTraceService.UpdateBiologicalTrace(id, updateBiologicalTraceDTO));
         }
     }
-
 }
