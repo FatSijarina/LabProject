@@ -1,9 +1,11 @@
 ﻿using CaseTrackingAPI.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace CaseTrackingAPI.Configurations
 {
-    public class CaseDbContext : DbContext
+    public class CaseDbContext : IdentityDbContext<User>
     {
         public CaseDbContext(DbContextOptions<CaseDbContext> options) : base(options) 
         {
@@ -25,5 +27,15 @@ namespace CaseTrackingAPI.Configurations
         public DbSet<Suspect> Suspects { get; set; } = null!;
         public DbSet<Victim> Victims { get; set; } = null!;
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            builder.Entity<IdentityRole>()
+                .HasData(
+                    new IdentityRole { Name = "Detektiv", NormalizedName = "DETEKTIV" },
+                    new IdentityRole { Name = "Prokuror", NormalizedName = "PROKUROR" }
+                );
+        }
     }
 }
