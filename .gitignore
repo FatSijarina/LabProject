@@ -397,7 +397,9 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
+# Backend API
 /CaseTrackingAPI/CaseTrackingAPI/appsettings.json
 /CaseTrackingAPI/CaseTrackingAPI/appsettings.Development.json
-/CaseTrackingUI/package-lock.json
-/CaseTrackingUI/package.json
+
+# ML Model
+/ModelTraining/ml_api/ml_api/.env
