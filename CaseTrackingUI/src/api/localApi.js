@@ -1,0 +1,1 @@
+export const caseStatus = ["Open", "In progress", "Closed"];
