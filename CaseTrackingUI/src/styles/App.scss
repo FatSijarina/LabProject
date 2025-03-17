@@ -1,0 +1,60 @@
+* {
+  font-family: Poppins;
+}
+
+.back {
+  background-image: url("../assets/Rectangle\ 1.png ");
+  width: 100%;
+  height: 400px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: -100;
+  background-size: contain;
+  background-repeat: repeat-x;
+}
+.back img {
+  width: 100%;
+  height: 80%;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  padding: 0;
+  margin: 0;
+}
+
+button {
+  cursor: pointer;
+}
+
+ul,
+li,
+a,
+.button {
+  list-style: none;
+  text-decoration: none;
+  color: #161616;
+  border: none;
+}
+
+.button {
+  cursor: pointer;
+  background-color: #00176a;
+}
+
+.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  margin: auto;
+  padding: 0;
+  text-align: center;
+}
