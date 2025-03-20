@@ -1,0 +1,45 @@
+.column{
+    display: flex;
+    flex-direction: column;
+    margin-left: 25%;
+  }
+  
+  .add_task{
+    margin-top: 20px;
+    background-color: #B0C2FF;
+    box-shadow: 0.05rem 0.1rem 0.3rem -0.03rem rgba(0, 0, 0, 0.45);
+    font-size: 2rem;
+    font-weight: bolder;
+    transition: all 0.2s ease-in-out;
+    color: #00176A;
+  }
+  
+  .add_task:hover{
+    background-color: #00176A;
+    color: #C8D4FF;
+    transform: translateY(-20px);
+  }
+  
+  .filters {
+    margin-top: 30px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  
+    .filter-item {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+  
+      label {
+        font-weight: bold;
+      }
+  
+      select,
+      input {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+    }
+  }
