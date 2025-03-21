@@ -1,32 +1,61 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-//import Navbar from "./components/navbar/Navbar";
-import { LandingPage,Login, Register, TaskList} from "./pages/index";
-
+import "./styles/App.scss";
+import Navbar from "./components/navbar/navbar";
+import { LandingPage, TaskList, CaseList, Case, ProvaList, Login, Register, Statistics, MyProfile} from "./pages/index";
+import { Route, Routes } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "./store/configureStore.ts";
+import { fetchCurrentUser } from "./pages/Account/AccountSlice.ts";
+import { useCallback, useEffect, useState } from "react";
+import Footer from "./components/Footer/Footer";
 
 const routes = [
   {path: "/landingPage", element: LandingPage},
-  { path: "/tasks", element: TaskList },
+  {path: "/cases", element: CaseList},
+  {path: "/tasks", element: TaskList},
+  {path: "/case/:caseId", element: Case},
+  {path: "/provat", element: ProvaList},
+  {path: "/statistics", element: Statistics},
+  {path: "/myprofile", element: MyProfile},
 ];
 
 function App() {
+  const dispatch = useAppDispatch();
+  const [loading, setLoading] = useState(true);
+
+  const initApp = useCallback(async () => {
+    try {
+      await dispatch(fetchCurrentUser());
+    } catch (error) {
+      console.log(error);
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
+    initApp().then(() => setLoading(false));
+  }, [initApp])
+
   return (
-    <Router>
-      <div className="main-container">
+    <div className="main-container">
+      <Navbar />
+      <div className="back"></div>
+      {loading ? <CaseList /> : 
         <Routes>
-          {routes.map((route, index) => (
+          {routes.map((route) => (
             <Route
               path={route.path}
-              key={index}
-              element={<route.element />}
+              key={route.key}
+              element={
+                  <route.element />
+              }
             />
           ))}
-          {/* Default Route */}
-          <Route path="/" element={<h1>Welcome to Task Management</h1>} />
-          <Route path="*" element={<h1>404 - Page Not Found</h1>} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/" element={<LandingPage />} />
+          <Route path="*" element={<LandingPage />} />
         </Routes>
-      </div>
-    </Router>
+      }
+      <Footer />
+    </div>
   );
 }
 

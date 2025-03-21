@@ -1,0 +1,19 @@
+.card-layout {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 50px;
+    width: 70%;
+  
+    &__add-case {
+      background-color: #ecf0ff;
+      box-shadow: 0.05rem 0.1rem 0.3rem -0.03rem rgba(0, 0, 0, 0.45);
+      font-size: 2rem;
+      font-weight: bolder;
+      transition: all 0.2s ease-in-out;
+    }
+    &__add-case:hover {
+      background-color: #00176a42;
+      transform: translateY(-20px);
+    }
+  }

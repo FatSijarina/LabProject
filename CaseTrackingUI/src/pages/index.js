@@ -1,6 +1,10 @@
 export {default as LandingPage} from './LandingPage';
+export {default as CaseList} from './Case/CaseList/CaseList';
+export {default as Tasks} from './Tasks';
+export {default as Case} from './Case/Case';
+export {default as ProvaList} from './Prova/ProvaList/ProvaList';
+export {default as TaskList} from './Task/TaskList/TaskList';
 export {default as Login} from './Account/Login';
 export {default as Register} from './Account/Register';
-export {default as Tasks} from './Tasks';
-export {default as TaskList} from './Task/TaskList/TaskList';
+export {default as Statistics} from './Statistics/Statistics';
 export {default as MyProfile} from './MyProfile/MyProfile';
