@@ -1,6 +1,6 @@
 import "./styles/App.scss";
 import Navbar from "./components/navbar/navbar";
-import { LandingPage, TaskList, CaseList, Case, ProvaList, Login, Register, Statistics, MyProfile} from "./pages/index";
+import { LandingPage, TaskList, CaseList, Case, ProvaList, Login, Register, Statistics, MyProfile, Chat} from "./pages/index";
 import { Route, Routes } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "./store/configureStore.ts";
 import { fetchCurrentUser } from "./pages/Account/AccountSlice.ts";
@@ -15,6 +15,7 @@ const routes = [
   {path: "/provat", element: ProvaList},
   {path: "/statistics", element: Statistics},
   {path: "/myprofile", element: MyProfile},
+  {path: "/chat", element: Chat},
 ];
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
           ))}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/chat" element={<Chat />} />
           <Route path="/" element={<LandingPage />} />
           <Route path="*" element={<LandingPage />} />
         </Routes>
