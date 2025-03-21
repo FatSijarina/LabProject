@@ -1,13 +1,13 @@
 import axios from 'axios';
 import { store } from '../store/configureStore.ts';
 
-axios.defaults.baseURL = "https://localhost:7275/api/";
+axios.defaults.baseURL = "https://localhost:7066/api/";
 
 const responseBody = (response) => response.data;
 
 axios.interceptors.request.use(config => {
     const token = store.getState().account.user?.token;
-    if (token) config.headers.Authorization = 'Bearer ${token}';
+    if (token) config.headers.Authorization = `Bearer ${token}`;
     return config;
 })
 
@@ -19,9 +19,9 @@ const requests ={
 }
 
 const Cases = {
-    get: () => requests.get('Case/Case/cases'),
-    getById: (id) => requests.get(`Case/Case/case/${id}`),
-    create: (values) => requests.post(`Case/Case/case`, values)
+    get: () => requests.get('Case/cases'),
+    getById: (id) => requests.get(`Case/case/${id}`),
+    create: (values) => requests.post(`Case/case`, values)
 }
 
 const Files = {
