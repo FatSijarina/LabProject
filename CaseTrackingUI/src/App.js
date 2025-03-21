@@ -1,9 +1,11 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 //import Navbar from "./components/navbar/Navbar";
-import TaskList from "./components/TaskCard/TaskCard"; 
+import { LandingPage,Login, Register, TaskList} from "./pages/index";
+
 
 const routes = [
+  {path: "/landingPage", element: LandingPage},
   { path: "/tasks", element: TaskList },
 ];
 
