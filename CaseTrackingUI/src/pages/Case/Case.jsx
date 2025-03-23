@@ -87,7 +87,7 @@ const Case = () => {
               setPersonType("viktimat");
             }}
           >
-            {caseData.viktimat.length} Viktima
+            {(caseData.viktimat?.length || 0)} Viktima
           </button>
           <button
             onClick={() => {
@@ -95,7 +95,7 @@ const Case = () => {
               setPersonType("deshmitaret");
             }}
           >
-            {caseData.deshmitaret.length} Deshmitare
+            {(caseData.viktimat?.length || 0)} Deshmitare
           </button>
           <button
             onClick={() => {
@@ -103,7 +103,7 @@ const Case = () => {
               setPersonType("teDyshuarit");
             }}
           >
-            {caseData.teDyshuarit.length} Te Dyshuar
+            {(caseData.viktimat?.length || 0)} Te Dyshuar
           </button>
         </div>
       </div>

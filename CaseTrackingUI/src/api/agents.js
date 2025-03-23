@@ -48,20 +48,20 @@ const viktimat = {
 };
 
 const Provat = {
-  get: () => requests.get('Data/Prova/te-gjitha-provat'),
-  getById: (id) => requests.get(`Data/Prova/proven/${id}`)
+    get: () => requests.get('Evidence/evidences'),
+    getById: (id) => requests.get(`Evidence/evidence/${id}`)
 };
-
+  
 const ProvatBiologjike = {
-  get: () => requests.get('Data/ProvaBiologjike/provat-biologjike'),
-  getById: (id) => requests.get(`Data/ProvaBiologjike/proven-biologjike/${id}`),
-  create: (values) => requests.post(`Data/ProvaBiologjike/proven-biologjike`, values)
+    get: () => requests.get('BiologicalEvidence/biological-evidences'),
+    getById: (id) => requests.get(`BiologicalEvidence/biological-evidence/${id}`),
+    create: (values) => requests.post(BiologicalEvidence/biological-evidence, values)
 };
-
+  
 const ProvatFizike = {
-  get: () => requests.get('Data/ProvaFizike/provat-fizike'),
-  getById: (id) => requests.get(`Data/ProvaFizike/proven-fizike/${id}`),
-  create: (values) => requests.post(`Data/ProvaFizike/proven-fizike`, values)
+    get: () => requests.get('PhysicalEvidence/physical-evidences'),
+    getById: (id) => requests.get(`PhysicalEvidence/physical-evidence/${id}`),
+    create: (values) => requests.post(PhysicalEvidence/physical-evidence, values)
 };
 
 const Tasks = {
