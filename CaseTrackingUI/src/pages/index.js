@@ -9,3 +9,4 @@ export {default as Register} from './Account/Register';
 export {default as Statistics} from './Statistics/Statistics';
 export {default as MyProfile} from './MyProfile/MyProfile';
 export {default as Chat} from './Chat/Chat'; 
+export {default as SuspectPredictionApp} from './Predictions/predictions';

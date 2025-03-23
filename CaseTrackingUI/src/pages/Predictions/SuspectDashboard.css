@@ -1,0 +1,55 @@
+/* Dashboard container */
+.dashboard-container {
+    display: flex;
+    height: 100vh;
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif;
+}
+
+/* Main content */
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+/* Card styling */
+.suspect-card {
+    background: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.suspect-card:hover {
+    transform: scale(1.02);
+}
+
+.suspect-card h2 {
+    font-size: 22px;
+    color: #2c3e50;
+}
+
+.suspect-card p {
+    font-size: 16px;
+    color: #555;
+    margin: 5px 0;
+}
+
+.suspect-card .prediction {
+    font-weight: bold;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.suspect-card .prediction.likely {
+    background-color: #e74c3c;
+}
+
+.suspect-card .prediction.unlikely {
+    background-color: #2ecc71;
+}

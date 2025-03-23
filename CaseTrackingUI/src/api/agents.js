@@ -55,13 +55,13 @@ const Provat = {
 const ProvatBiologjike = {
     get: () => requests.get('BiologicalEvidence/biological-evidences'),
     getById: (id) => requests.get(`BiologicalEvidence/biological-evidence/${id}`),
-    create: (values) => requests.post(BiologicalEvidence/biological-evidence, values)
+    create: (values) => requests.post('BiologicalEvidence/biological-evidence', values)
 };
   
 const ProvatFizike = {
     get: () => requests.get('PhysicalEvidence/physical-evidences'),
     getById: (id) => requests.get(`PhysicalEvidence/physical-evidence/${id}`),
-    create: (values) => requests.post(PhysicalEvidence/physical-evidence, values)
+    create: (values) => requests.post('PhysicalEvidence/physical-evidence', values)
 };
 
 const Tasks = {

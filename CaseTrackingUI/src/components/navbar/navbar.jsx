@@ -35,7 +35,11 @@ const pages = [
   {
   name: "Chat",
   path: "./chat",
-},
+  },
+  {
+    name: "Predictions",
+    path: "./predictions",
+  },
 ].filter(Boolean);
 
 function ResponsiveAppBar() {

@@ -1,6 +1,6 @@
 import "./styles/App.scss";
 import Navbar from "./components/navbar/navbar";
-import { LandingPage, TaskList, CaseList, Case, ProvaList, Login, Register, Statistics, MyProfile, Chat} from "./pages/index";
+import { LandingPage, TaskList, CaseList, Case, ProvaList, Login, Register, Statistics, MyProfile, Chat, SuspectPredictionApp} from "./pages/index";
 import { Route, Routes } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "./store/configureStore.ts";
 import { fetchCurrentUser } from "./pages/Account/AccountSlice.ts";
@@ -16,6 +16,7 @@ const routes = [
   {path: "/statistics", element: Statistics},
   {path: "/myprofile", element: MyProfile},
   {path: "/chat", element: Chat},
+  {path: "/predictions", element: SuspectPredictionApp},
 ];
 
 function App() {
@@ -52,6 +53,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/chat" element={<Chat />} />
+          <Route path="/predictions" element={<SuspectPredictionApp />} />
           <Route path="/" element={<LandingPage />} />
           <Route path="*" element={<LandingPage />} />
         </Routes>
