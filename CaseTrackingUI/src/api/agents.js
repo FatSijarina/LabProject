@@ -33,18 +33,18 @@ const Files = {
 };
 
 const deshmitaret = {
-  get: () => requests.get('Data/Deshmitari/deshmitaret'),
-  create: (values) => requests.post(`Data/Deshmitari/deshmitar`, values)
+  get: () => requests.get('Witness/witnesses'),
+  create: (values) => requests.post(`Witness/witness`, values)
 };
 
 const teDyshuarit = {
-  get: () => requests.get('Data/IDyshuari/te-dyshuarit'),
-  create: (values) => requests.post(`Data/IDyshuari/i-dyshuari`, values)
+  get: () => requests.get('Suspect/suspects'),
+  create: (values) => requests.post(`Suspect/suspect`, values)
 };
 
 const viktimat = {
-  get: () => requests.get('Data/Viktima/viktimat'),
-  create: (values) => requests.post(`Data/Viktima/viktime`, values)
+  get: () => requests.get('Victim/victims'),
+  create: (values) => requests.post(`Victims/victim`, values)
 };
 
 const Provat = {

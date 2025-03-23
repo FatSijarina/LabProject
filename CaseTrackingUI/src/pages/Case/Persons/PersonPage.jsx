@@ -3,7 +3,7 @@ import "../../../styles/popup.scss";
 import PersonCard from "../../../components/caseCard/PersonCard";
 import CreatePersoni from "../../Personi/CreatePersoni/CreatePersoni";
 
-const PersonPage = ({ personArray, personType, setIsOpen, isOpen, caseId }) => {
+const PersonPage = ({ personArray = [], personType, setIsOpen, isOpen, caseId }) => {
   const [isOpenP, setIsOpenP] = useState(false);
 
   const handleClose = () => {
