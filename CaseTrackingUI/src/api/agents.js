@@ -3,7 +3,7 @@ import { store } from '../store/configureStore.ts';
 
 // Axios instance for backend API
 const backendAxios = axios.create({
-  baseURL: "https://localhost:7066/api/",
+  baseURL: "http://localhost:5185/api/",
 });
 
 backendAxios.interceptors.request.use(config => {
@@ -68,7 +68,8 @@ const Tasks = {
   get: () => requests.get('Task/tasks'),
   getById: (id) => requests.get(`Task/get-task-by-id/${id}`),
   create: (values) => requests.post(`Task/add-task`, values),
-  update: (values, id) => requests.put(`Task/put-task/${id}`, values),
+  update: (values, id) => requests.put(`Task/update-task/${id}`, values),
+
   delete: (id) => requests.del(`Task/delete-task/${id}`)
 };
 

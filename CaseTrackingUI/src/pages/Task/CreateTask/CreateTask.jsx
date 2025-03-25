@@ -14,7 +14,7 @@ const CreateTask = ({ setIsOpen, isOpen }) => {
     title: "",
     details: "",
     dueDate: "",
-    statusi: false,
+    status: false,
     isCase: false,
     CaseId: 0,
   });
@@ -79,16 +79,16 @@ const CreateTask = ({ setIsOpen, isOpen }) => {
             onChange={handleChange}
           />
           <div>
-            <label htmlFor="statusi" >
+            <label htmlFor="status" >
               Is this task done:
             </label>
             <div className="toggler">
               <label className="toggle-switch">
                 <input
                   type="checkbox"
-                  id="statusi"
-                  name="statusi"
-                  checked={task.statusi}
+                  id="status"
+                  name="status"
+                  checked={task.status}
                   onChange={handleChange}
                   className="toggle-switch__input"
                 />
@@ -117,7 +117,7 @@ const CreateTask = ({ setIsOpen, isOpen }) => {
 
             </div>
 
-          <button type="submit">Shtot taskun</button>
+          <button type="submit">Shto taskun</button>
         </form>
       </div>
     </div>

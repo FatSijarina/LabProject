@@ -10,7 +10,7 @@ const TaskList = () => {
   const [taskat, setTaskat] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [filters, setFilters] = useState({
-    statusi: "all",
+    status: "all",
     dueDate: "",
     caseId: "",
   });
@@ -21,13 +21,16 @@ const TaskList = () => {
 
   const handleFilterChange = (e) => {
     e.preventDefault();
-    // setSelectedCase(e.target.value)
     setFilters({
       ...filters,
       [e.target.name]: e.target.value,
     });
-    console.log(filters.statusi);
-    console.log(filters.caseId);
+  };
+
+  const updateTaskInList = (updatedTask) => {
+    setTaskat((prev) =>
+      prev.map((t) => (t.id === updatedTask.id ? updatedTask : t))
+    );
   };
 
   useEffect(() => {
@@ -44,9 +47,9 @@ const TaskList = () => {
 
   let filteredTasks = taskat;
 
-  if (filters.statusi !== "all") {
+  if (filters.status !== "all") {
     filteredTasks = filteredTasks.filter(
-      (task) => String(task.statusi) === filters.statusi
+      (task) => String(task.status) === filters.status
     );
   }
 
@@ -70,11 +73,11 @@ const TaskList = () => {
       </button>
       <div className="filters">
         <div className="filter-item">
-          <label htmlFor="statusi-filter">Filter by status:</label>
+          <label htmlFor="status-filter">Filter by status:</label>
           <select
-            id="statusi-filter"
-            name="statusi"
-            value={filters.statusi}
+            id="status-filter"
+            name="status"
+            value={filters.status}
             onChange={handleFilterChange}
           >
             <option value="all">All</option>
@@ -123,7 +126,8 @@ const TaskList = () => {
               details={taskat.details}
               dateCreated={taskat.dateCreated}
               dueDate={taskat.dueDate}
-              statusi={taskat.statusi}
+              status={taskat.status}
+              updateTask={updateTaskInList}
             />
           ))
         )}

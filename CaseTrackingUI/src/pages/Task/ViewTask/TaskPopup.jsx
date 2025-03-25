@@ -3,11 +3,12 @@ import "./TaskPop.scss";
 import "../../../assets/style/toggle-switch.css";
 import agent from "../../../api/agents";
 
-const TaskPopup = ({ isOpen, setIsOpen, task }) => {
+const TaskPopup = ({ isOpen, setIsOpen, task, onUpdate }) => {
   const [title, setTitle] = useState(task.title);
   const [details, setDetails] = useState(task.details);
   const [dueDate, setDueDate] = useState(task.dueDate);
-  const [statusi, setStatusi] = useState(task.statusi);
+  const [status, setStatus] = useState(task.status);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleClose = () => {
     setIsOpen(false);
@@ -15,29 +16,39 @@ const TaskPopup = ({ isOpen, setIsOpen, task }) => {
 
   const handleSubmit = () => {
     const updatedTask = {
-      ...task,
-      title: title,
-      details: details,
-      dueDate: dueDate,
-      statusi: statusi,
+      id: task.id,
+      title,
+      details,
+      dueDate,
+      status,
+      caseId: task.caseId ?? null,
+      dateCreated: task.dateCreated,
     };
-    agent.Tasks.update(updatedTask, task.taskID);
-    setIsOpen(false);
-    window.location.reload();
+
+    setIsLoading(true);
+    agent.Tasks.update(updatedTask, task.id)
+      .then(() => {
+        console.log("✅ Task updated");
+        if (onUpdate) onUpdate(updatedTask);
+        setIsOpen(false);
+      })
+      .catch((error) => {
+        console.error("❌ Update failed:", error.response?.data || error.message);
+        alert("Failed to update the task. See console for details.");
+      })
+      .finally(() => setIsLoading(false));
   };
 
   const handleChange = () => {
-    setStatusi(!statusi);
+    setStatus(!status);
   };
 
   return isOpen ? (
     <div className="popup">
       <div className="popup__inner">
-        <button className="popup__close-button" onClick={handleClose}>
-          X
-        </button>
+        <button className="popup__close-button" onClick={handleClose}>X</button>
         <div className="content">
-          <h4 className="info">Task Information ID: {task.taskID}</h4>
+          <h4 className="info">Task Information ID: {task.id}</h4>
 
           <h1 className="title">
             <input
@@ -63,14 +74,14 @@ const TaskPopup = ({ isOpen, setIsOpen, task }) => {
               />
             </div>
             <div className="input-item">
-              <label htmlFor="statusi">Is this task done:</label>
+              <label htmlFor="status">Is this task done:</label>
               <div className="toggler">
                 <label className="toggle-switch">
                   <input
                     type="checkbox"
-                    id="statusi"
-                    name="statusi"
-                    checked={statusi}
+                    id="status"
+                    name="status"
+                    checked={status}
                     onChange={handleChange}
                     className="toggle-switch__input"
                   />
@@ -79,15 +90,15 @@ const TaskPopup = ({ isOpen, setIsOpen, task }) => {
               </div>
             </div>
             <div className="input-item">
-              <button onClick={handleSubmit}>Update</button>
+              <button onClick={handleSubmit} disabled={isLoading}>
+                {isLoading ? "Updating..." : "Update"}
+              </button>
             </div>
           </div>
         </div>
       </div>
     </div>
-  ) : (
-    ""
-  );
+  ) : null;
 };
 
 export default TaskPopup;
