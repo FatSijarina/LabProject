@@ -403,3 +403,4 @@ FodyWeavers.xsd
 
 # ML Model
 /ModelTraining/ml_api/ml_api/.env
+CaseTrackingUI/.env
