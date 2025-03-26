@@ -3,8 +3,6 @@ import Avatar from "@mui/material/Avatar";
 import { LoadingButton } from "@mui/lab";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -13,7 +11,6 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useAppDispatch } from "../../store/configureStore.ts";
 import agent from "../../api/agents.js";
 
 function Copyright(props) {
@@ -50,19 +47,8 @@ export default function Login() {
 
   function handleApiErrors(errors) {
     if (errors) {
-      // React.Children.toArray(
-      //   errors.forEach(error => {
-      //     if (error.includes("Password")) {
-      //     setError("password", { message: error });
-      //   } else if (error.includes("Email")) {
-      //     setError("email", { message: error });
-      //   } else if (error.includes("Username")) {
-      //     setError("username", { message: error });
-      //   }
-      //   })
-      // )
-      for (var error in errors) console.log(error);
-      {
+      for (var error in errors) {
+        console.log(error);
         if (error.includes("Password")) {
           setError("password", { message: error });
         } else if (error.includes("Email")) {

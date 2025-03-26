@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import "../../../styles/popup.scss";
 import agent from "../../../api/agents";
 import ImageCard from "./ImageCard";
@@ -16,15 +16,15 @@ const Images = ({ caseId, setIsFileOpen, isFileOpen }) => {
     setIsFileUploadOpen((prev) => !prev);
   };
 
-  const fetchImages = () => {
+  const fetchImages = useCallback(() => {
     agent.Files.getCaseImages(caseId).then((response) => {
       setImages(response);
     });
-  };
+  }, [caseId]);
 
   useEffect(() => {
     fetchImages();
-  }, [caseId]);
+  }, [fetchImages]);
 
   return isFileOpen ? (
     <div className="popup">

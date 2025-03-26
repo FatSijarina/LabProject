@@ -2,7 +2,7 @@ import "./styles/App.scss";
 import Navbar from "./components/navbar/navbar";
 import { LandingPage, TaskList, CaseList, Case, ProvaList, Login, Register, Statistics, MyProfile, Chat, SuspectPredictionApp} from "./pages/index";
 import { Route, Routes } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "./store/configureStore.ts";
+import { useAppDispatch } from "./store/configureStore.ts";
 import { fetchCurrentUser } from "./pages/Account/AccountSlice.ts";
 import { useCallback, useEffect, useState } from "react";
 import Footer from "./components/Footer/Footer";

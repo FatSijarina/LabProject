@@ -3,7 +3,6 @@ import "./case.scss";
 import { useParams } from "react-router-dom";
 import agent from "../../api/agents";
 import PersonPage from "./Persons/PersonPage";
-import ProvaCard from "../../components/provaCard/ProvaCard";
 import ProvaList from "../Prova/ProvaList/ProvaList";
 import Images from "./Files/Images";
 
