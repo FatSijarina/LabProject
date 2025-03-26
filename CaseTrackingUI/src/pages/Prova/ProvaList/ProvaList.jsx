@@ -46,11 +46,11 @@ const ProvaList = ({ provaType, setIsOpenP, isOpenP }) => {
           {React.Children.toArray(
             provat.map((provat) => (
               <ProvaCard
-                provaId={provat.id}
-                emri={provat.emri}
-                koha={provat.koha}
-                vendndodhja={provat.vendndodhja}
-                attachment={provat.attachment}
+                Id={provat.Id}
+                Name={provat.Name}
+                RetrievalTime={provat.RetrievalTime}
+                Location={provat.Location}
+                Attachment={provat.Attachment}
               />
             ))
           )}

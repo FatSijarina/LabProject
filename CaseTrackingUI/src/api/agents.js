@@ -62,19 +62,26 @@ const viktimat = {
 
 const Provat = {
     get: () => requests.get('Evidence/evidences'),
-    getById: (id) => requests.get(`Evidence/evidence/${id}`)
+    getById: (id) => requests.get(`Evidence/evidence/${id}`),
+    delete: (id) => requests.del(`Evidence/evidence/${id}`)
 };
   
 const ProvatBiologjike = {
     get: () => requests.get('BiologicalEvidence/biological-evidences'),
     getById: (id) => requests.get(`BiologicalEvidence/biological-evidence/${id}`),
-    create: (values) => requests.post('BiologicalEvidence/biological-evidence', values)
+    create: (values) => requests.post('BiologicalEvidence/biological-evidence', values),
+    update: (id, values) => requests.put(`BiologicalEvidence/biological-evidence/${id}`, values),
+    compare: (values) => requests.post('BiologicalEvidence/biological-evidence/compare', values),
 };
   
 const ProvatFizike = {
     get: () => requests.get('PhysicalEvidence/physical-evidences'),
     getById: (id) => requests.get(`PhysicalEvidence/physical-evidence/${id}`),
-    create: (values) => requests.post('PhysicalEvidence/physical-evidence', values)
+    create: (values) => requests.post('PhysicalEvidence/physical-evidence', values),
+    update: (id, values) => requests.put(`PhysicalEvidence/physical-evidence/${id}`, values),
+    getEvidencesRequiringExamination: () => requests.get('PhysicalEvidence/physical-evidence/physical-evidences-requiring-examination'),
+    getEvidencesWithTraces: () => requests.get('PhysicalEvidence/physical-evidence/physical-evidences-with-traces'),
+    getEvidencesByRiskLevel: () => requests.get('PhysicalEvidence/physical-evidence/physical-evidences-by-risk-level'),
 };
 
 const Tasks = {

@@ -8,14 +8,14 @@ import agent from "../../../api/agents";
 
 const CreateProvaB = ({ setIsOpen, isOpen }) => { 
   const [provaB, setProvaB] = useState({
-    emri: "",
-    koha: "",
-    vendndodhja: "",
-    attachment: "",
-    personiId: "",
-    lloji: "",
-    specifikimi: "",
-    teknikaENxjerrjes: ""
+    Name: "",
+    RetreivalTime: "",
+    Location: "",
+    Attachment: "",
+    PersonId: "",
+    Type: "",
+    Specification: "",
+    RetreivalTechnique: ""
   });
 
   const handleClose = () => {
@@ -44,65 +44,65 @@ const CreateProvaB = ({ setIsOpen, isOpen }) => {
         <button className="popup__close-button" onClick={handleClose}>
           X
         </button>
-        <h1>Shto Provë Biologjike</h1>
+        <h1>Add Biological Trace</h1>
         <form className="popup__form" onSubmit={handleSubmit}>
           <FormInput
-            label="Emri"
+            label="Name"
             type="text"
-            name="emri"
-            placeholder="Emri"
+            name="Name"
+            placeholder="Name"
             onChange={handleChange}
           />
           <FormInput
-            label="Koha"
+            label="Retrieval Time"
             type="text"
-            name="koha"
-            placeholder="Koha"
+            name="RetreivalTime"
+            placeholder="Retrieval Time"
             onChange={handleChange}
           />
           <FormInput
-            label="Vendndodhja"
+            label="Location"
             type="text"
-            name="vendndodhja"
-            placeholder="Vendndodhja"
+            name="Location"
+            placeholder="Location"
             onChange={handleChange}
           />
           <FormInput
             label="Attachment"
             type="text"
-            name="attachment"
+            name="Attachment"
             placeholder="Attachment"
             onChange={handleChange}
           />
           <FormInput
-            label="PersoniId"
+            label="PersonId"
             type="text"
-            name="personiId"
-            placeholder="PersoniId"
+            name="PersonId"
+            placeholder="PersonId"
             onChange={handleChange}
           />
           <FormInput
-            label="Lloji"
+            label="Type"
             type="text"
-            name="lloji"
-            placeholder="Lloji"
+            name="Type"
+            placeholder="Type"
             onChange={handleChange}
           />
           <FormInput
-            label="Specifikimi"
+            label="Specification"
             type="text"
-            name="specifikimi"
-            placeholder="Specifikimi"
+            name="Specification"
+            placeholder="Specification"
             onChange={handleChange}
           />
           <FormInput
-            label="Teknika e nxjerrjes"
+            label="Retrieval Technique"
             type="text"
-            name="teknikaENxjerrjes"
-            placeholder="Teknika e nxjerrjes"
+            name="RetreivalTechnique"
+            placeholder="Retrieval Technique"
             onChange={handleChange}
           />
-          <button type="submit">Shto Provën Biologjike</button>
+          <button type="submit">Add biological trace</button>
         </form>
       </div>
     </div>

@@ -8,16 +8,16 @@ import agent from "../../../api/agents";
 
 const CreateProvaF = ({ setIsOpen, isOpen }) => {
   const [provaF, setProvaF] = useState({
-    emri: "",
-    koha: "",
-    vendndodhja: "",
-    attachment: "",
-    personiId: "",
-    ePerdorurNeKrim: false,
-    rrezikshmeria: "",
-    klasifikimi: "",
-    duhetEkzaminim: false,
-    kaGjurmeBiologjike: false
+    Name: "",
+    RetreivalTime: "",
+    Location: "",
+    Attachment: "",
+    PersonId: "",
+    UsedInCrime: false,
+    DangerLevel: "",
+    Classification: "",
+    RequiresExamination: false,
+    ContainsBiologicalTraces: false
   });
 
   const handleClose = () => {
@@ -55,73 +55,73 @@ const CreateProvaF = ({ setIsOpen, isOpen }) => {
         <h1>Shto Provë Fizike</h1>
         <form className="popup__form" onSubmit={handleSubmit}>
         <FormInput
-            label="Emri"
+            label="Name"
             type="text"
-            name="emri"
-            placeholder="Emri"
+            name="Name"
+            placeholder="Name"
             onChange={handleChange}
           />
           <FormInput
-            label="Koha"
+            label="Retrieval Time"
             type="datetime"
-            name="koha"
-            placeholder="Koha"
+            name="RetrievalTime"
+            placeholder="Retrieval Time"
             onChange={handleChange}
           />
           <FormInput
-            label="Vendndodhja"
+            label="Location"
             type="text"
-            name="vendndodhja"
-            placeholder="Vendndodhja"
+            name="Location"
+            placeholder="Location"
             onChange={handleChange}
           />
           <FormInput
             label="Attachment"
             type="text"
-            name="attachment"
+            name="Attachment"
             placeholder="Attachment"
             onChange={handleChange}
           />
           <FormInput
-            label="PersoniId"
+            label="PersonId"
             type="text"
-            name="personiId"
-            placeholder="PersoniId"
+            name="PersonId"
+            placeholder="PersonId"
             onChange={handleChange}
           />
           <FormSelectBool
-            label="E përdorur në krim"
+            label="Used in crime"
             type="radio"
-            name="ePerdorurNeKrim"
+            name="UsedInCrime"
             onChange={handleChange}
           />
           <FormInput
-            label="Rrezikshmeria"
+            label="Danger Level"
             type="text"
-            name="rrezikshmeria"
-            placeholder="Rrezikshmeria"
+            name="DangerLevel"
+            placeholder="Danger Level"
             onChange={handleChange}
           />
           <FormInput
-            label="Klasifikimi"
+            label="Classification"
             type="text"
-            name="klasifikimi"
-            placeholder="Klasifikimi"
+            name="Classification"
+            placeholder="Classification"
             onChange={handleChange}
           />
           <FormSelectBool
-            label="Duhet ekzaminim"
+            label="Requires examination"
             type="radio"
-            name="duhetEkzaminim"
+            name="RequiresExamination"
             onChange={handleChange}
           />
           <FormSelectBool
-            label="Ka gjurme biologjike"
+            label="Contains biological traces"
             type="radio"
-            name="kaGjurmeBiologjike"
+            name="ContainsBiologicalTraces"
             onChange={handleChange}
           />
-          <button type="submit">Shto Provën Fizike</button>
+          <button type="submit">Add physical trace</button>
         </form>
       </div>
     </div>
