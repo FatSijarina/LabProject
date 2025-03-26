@@ -59,6 +59,7 @@ namespace CaseTrackingAPI.Services.Implementation
 
         }
 
+        // download file in folder FilesDownloaded, if the folder does not exists, it will be created prior donwloading the file
         public async Task DownloadFileById(int id)
         {
             try
@@ -68,18 +69,24 @@ namespace CaseTrackingAPI.Services.Implementation
                 if (file != null)
                 {
                     var content = new System.IO.MemoryStream(file.FileData);
-                    var path = Path.Combine(
-                        Directory.GetCurrentDirectory(), "FilesDownloaded",
-                        file.FileName);
+                    var directoryPath = Path.Combine(Directory.GetCurrentDirectory(), "FilesDownloaded");
+                    var path = Path.Combine(directoryPath, file.FileName);
+
+                    if (!Directory.Exists(directoryPath))
+                    {
+                        Directory.CreateDirectory(directoryPath);
+                    }
 
                     await CopyStream(content, path);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine($"An error occurred: {ex.Message}");
                 throw;
             }
         }
+
 
         private async Task CopyStream(Stream stream, string downloadPath)
         {

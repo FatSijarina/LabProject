@@ -71,4 +71,19 @@
         width: 35%;
       }
     }
+
+    .download-button {
+      margin-top: 10px;
+      padding: 8px 12px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    
+    .download-button:hover {
+      background-color: #0056b3;
+    }    
   }
