@@ -8,23 +8,24 @@ import agent from "../../../api/agents";
 
 const CreatePersoni = ({ person, personType, setIsOpenP, isOpenP }) => {
   const [personi, setPersoni] = useState({
-    emri: "",
-    gjinia: "",
-    profesioni: "",
-    statusi: "",
-    vendbanimi: "",
-    gjendjaMendore: "",
-    eKaluara: "",
-    deklaratat: [],
-    gjurmetBiologjike: [],
-    vendi: "",
-    koha: "",
-    menyra: "",
-    gjendja: "",
-    raportiMeViktimen: "",
-    vezhgohet: false,
-    dyshohet: false,
-    Dyshimi: "",
+    name: "",
+    gender: "",
+    profession: "",
+    status: "",
+    residence: "",
+    mentalState: "",
+    background: "",
+    statements: [],
+    biologicalTraces: [],
+    evidences: [],
+    location: "",
+    time: "",
+    method: "",
+    condition: "",
+    relationToVictim: "",
+    isUnderObservation: false,
+    isSuspected: false,
+    suspicion: "",
     caseId: "",
   });
 
@@ -35,11 +36,10 @@ const CreatePersoni = ({ person, personType, setIsOpenP, isOpenP }) => {
   const handleChange = (e) => {
     const name = e.target.name;
     let value = e.target.value;
-    if (value === "true") {
-      value = true;
-    } else if (value === "false") {
-      value = false;
-    }
+    if (value === "true") value = true;
+    else if (value === "false") value = false;
+    else if (name === "caseId") value = parseInt(value);
+    else if (name === "gender" && value.length > 1) value = value.charAt(0);
     setPersoni((prev) => {
       return { ...prev, [name]: value };
     });
@@ -63,49 +63,49 @@ const CreatePersoni = ({ person, personType, setIsOpenP, isOpenP }) => {
           <FormInput
             label="Emri"
             type="text"
-            name="emri"
+            name="name"
             placeholder="Emri"
             onChange={handleChange}
           />
           <FormInput
-            label="Gjinia"
+            label="Gjinia (M/F)"
             type="text"
-            name="gjinia"
-            placeholder="Gjinia"
+            name="gender"
+            placeholder="M or F"
             onChange={handleChange}
           />
           <FormInput
             label="Profesioni"
             type="text"
-            name="profesioni"
+            name="profession"
             placeholder="Profesioni"
             onChange={handleChange}
           />
           <FormInput
             label="Statusi"
             type="text"
-            name="statusi"
+            name="status"
             placeholder="Statusi"
             onChange={handleChange}
           />
           <FormInput
             label="Vendbanimi"
             type="text"
-            name="vendbanimi"
+            name="residence"
             placeholder="Vendbanimi"
             onChange={handleChange}
           />
           <FormInput
             label="Gjendja Mendore"
             type="text"
-            name="gjendjaMendore"
+            name="mentalState"
             placeholder="Gjendja Mendore"
             onChange={handleChange}
           />
           <FormInput
             label="E kaluara"
             type="text"
-            name="eKaluara"
+            name="background"
             placeholder="E kaluara"
             onChange={handleChange}
           />
@@ -114,20 +114,20 @@ const CreatePersoni = ({ person, personType, setIsOpenP, isOpenP }) => {
               <FormInput
                 label="Raporti me viktimen"
                 type="text"
-                name="raportiMeViktimen"
+                name="relationToVictim"
                 placeholder="Raporti me viktimen"
                 onChange={handleChange}
               />
               <FormSelectBool
                 label="A vezhgohet"
                 type="radio"
-                name="vezhgohet"
+                name="isUnderObservation"
                 onChange={handleChange}
               />
               <FormSelectBool
                 label="A dyshohet"
                 type="radio"
-                name="dyshohet"
+                name="isSuspected"
                 onChange={handleChange}
               />
             </>
@@ -137,28 +137,28 @@ const CreatePersoni = ({ person, personType, setIsOpenP, isOpenP }) => {
               <FormInput
                 label="Vendi"
                 type="text"
-                name="vendi"
+                name="location"
                 placeholder="Vendi"
                 onChange={handleChange}
               />
               <FormInput
                 label="Koha"
-                type="datetime"
-                name="koha"
+                type="datetime-local"
+                name="time"
                 placeholder="Koha"
                 onChange={handleChange}
               />
               <FormInput
                 label="Menyra"
                 type="text"
-                name="menyra"
+                name="method"
                 placeholder="Menyra"
                 onChange={handleChange}
               />
               <FormInput
                 label="Gjendja"
                 type="text"
-                name="gjendja"
+                name="condition"
                 placeholder="Gjendja"
                 onChange={handleChange}
               />
@@ -169,7 +169,7 @@ const CreatePersoni = ({ person, personType, setIsOpenP, isOpenP }) => {
               <FormInput
                 label="Dyshimi"
                 type="text"
-                name="dyshimi"
+                name="suspicion"
                 placeholder="Dyshimi"
                 onChange={handleChange}
               />
@@ -177,7 +177,7 @@ const CreatePersoni = ({ person, personType, setIsOpenP, isOpenP }) => {
           )}
           <FormInput
             label="Case id"
-            type="text"
+            type="number"
             name="caseId"
             placeholder="Case id"
             onChange={handleChange}

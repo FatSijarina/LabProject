@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import agent from "../../api/agents";
 import PersonPage from "./Persons/PersonPage";
 import ProvaCard from "../../components/provaCard/ProvaCard";
-
 import ProvaList from "../Prova/ProvaList/ProvaList";
 import Images from "./Files/Images";
 
@@ -65,13 +64,7 @@ const Case = () => {
         <p> {caseData.details}</p>
       </div>
       <div className="case-page__files">
-        <button
-          onClick={() => {
-            handleOpenFiles();
-          }}
-        >
-          Files
-        </button>
+        <button onClick={handleOpenFiles}>Files</button>
       </div>
       <Images
         setIsFileOpen={setIsFileOpen}
@@ -95,7 +88,7 @@ const Case = () => {
               setPersonType("deshmitaret");
             }}
           >
-            {(caseData.viktimat?.length || 0)} Deshmitare
+            {(caseData.deshmitaret?.length || 0)} Deshmitare
           </button>
           <button
             onClick={() => {
@@ -103,7 +96,7 @@ const Case = () => {
               setPersonType("teDyshuarit");
             }}
           >
-            {(caseData.viktimat?.length || 0)} Te Dyshuar
+            {(caseData.teDyshuarit?.length || 0)} Te Dyshuar
           </button>
         </div>
       </div>
@@ -134,14 +127,14 @@ const Case = () => {
           </button>
         </div>
       </div>
-      {isOpenP != false ? (
+      {isOpenP ? (
         <ProvaList
           provaType={provaType}
           setIsOpenP={setIsOpenP}
           isOpenP={isOpenP}
         />
       ) : (
-        " "
+        ""
       )}
     </div>
   );

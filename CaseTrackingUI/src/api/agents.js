@@ -34,17 +34,30 @@ const Files = {
 
 const deshmitaret = {
   get: () => requests.get('Witness/witnesses'),
-  create: (values) => requests.post(`Witness/witness`, values)
+  create: (values) => requests.post('Witness/witness', values),
+  getById: (id) => requests.get(`Witness/witness/${id}`),
+  update: (id, values) => requests.put(`Witness/witness/${id}`, values),
+  getInfo: (id) => requests.get(`Witness/witness/${id}/info`),
+  markAsSuspect: (id) => requests.post(`Witness/witness/${id}/save-as-suspect`),
+  isSuspected: (id) => requests.get(`Witness/witness/${id}/is-suspected`),
+  isObserved: (id) => requests.get(`Witness/witness/${id}/is-observed`),
 };
 
 const teDyshuarit = {
   get: () => requests.get('Suspect/suspects'),
-  create: (values) => requests.post(`Suspect/suspect`, values)
+  create: (values) => requests.post('Suspect/suspect', values),
+  getById: (id) => requests.get(`Suspect/suspect/${id}`),
+  update: (id, values) => requests.put(`Suspect/suspect/${id}`, values),
+  getSuspicion: (id) => requests.get(`Suspect/suspect/${id}/suspicion`),
+  getInfo: (id) => requests.get(`Suspect/suspect/${id}/info`),
 };
 
 const viktimat = {
   get: () => requests.get('Victim/victims'),
-  create: (values) => requests.post(`Victims/victim`, values)
+  create: (values) => requests.post('Victim/victim', values),
+  getById: (id) => requests.get(`Victim/victim/${id}`),
+  update: (id, values) => requests.put(`Victim/victim/${id}`, values),
+  getInfo: (id) => requests.get(`Victim/victim/${id}/info`),
 };
 
 const Provat = {
