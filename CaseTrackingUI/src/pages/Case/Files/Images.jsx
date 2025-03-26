@@ -19,7 +19,7 @@ const Images = ({ caseId, setIsFileOpen, isFileOpen }) => {
     agent.Files.getCaseImages(caseId).then((response) => {
       setImages(response);
     });
-  }, []);
+  }, [caseId]);
 
   return isFileOpen ? (
     <div className="popup">
