@@ -33,8 +33,8 @@ const pages = [
     path: "./statistics",
   },
   {
-  name: "Chat",
-  path: "./chat",
+    name: "Chat",
+    path: "./chat",
   },
   {
     name: "Predictions",
@@ -72,16 +72,27 @@ function ResponsiveAppBar() {
             <img src={Logo} alt="Our logo." style={{ width: "50px" }} />
           </Link>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <NavLink
-                key={page.name}
-                to={page.path}
-                className="navlink"
-                style={{ margin: "0 10px" }}
-              >
-                {page.name}
-              </NavLink>
-            ))}
+            {pages.map((page) => {
+              // Only show protected pages if the user is logged in
+              if (
+                ["Cases", "Tasks", "Statistics", "Predictions", "Chat"].includes(
+                  page.name
+                ) &&
+                !user
+              ) {
+                return null; // Hide the link if the user is not logged in
+              }
+              return (
+                <NavLink
+                  key={page.name}
+                  to={page.path}
+                  className="navlink"
+                  style={{ margin: "0 10px" }}
+                >
+                  {page.name}
+                </NavLink>
+              );
+            })}
           </Box>
           {user? (
             <Box sx={{ flexGrow: 0 }}>
@@ -122,7 +133,12 @@ function ResponsiveAppBar() {
             </Box>
           ) : (
             <Link to="login">
-              <Button variant="contained" style={{ backgroundColor: "#00176A" }}>Sign In</Button>
+              <Button
+                variant="contained"
+                style={{ backgroundColor: "#00176A" }}
+              >
+                Sign In
+              </Button>
             </Link>
           )}
         </Toolbar>
