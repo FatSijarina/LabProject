@@ -4,34 +4,32 @@ import "./PersonCard.scss";
 const PersonCard = ({ person, personType }) => {
   return (
     <div className="person-card">
-      {console.log(person)}
-      <h3>{person.emri}</h3>
-      <p>Gjinia: {person.gjinia === "F" ? "Femer" : "Mashkull"}</p>
-      <p>Profesioni: {person.profesioni}</p>
-      <p>Statusi: {person.statusi}</p>
-      <p>Vendbanimi: {person.vendbanimi}</p>
-      <p>Gjendja Mendore: {person.gjendjaMendore}</p>
-      <p>E Kaluara: {person.eKaluara}</p>
+      <h3>{person.name}</h3>
+      <p>Gjinia: {person.gender === "F" ? "Femer" : "Mashkull"}</p>
+      <p>Profesioni: {person.profession}</p>
+      <p>Statusi: {person.status}</p>
+      <p>Vendbanimi: {person.residence}</p>
+      <p>Gjendja Mendore: {person.mentalState}</p>
+      <p>E Kaluara: {person.background}</p>
       <p>Deklaratat:</p>
-      {person.deklaratat.map((deklarata) => (
-        <p>Hello</p>
-        //<p>{deklarata.permbajtja}</p>
-      ))}
-      {personType === "viktimat" && (
+      {/* {person.statements.map((statement) => (
+        <p>{statement.content}</p>
+      ))} */}
+      {personType === "victims" && (
         <>
-          <p>Koha: {person.koha}</p>
-          <p>Menyra: {person.menyra}</p>
-          <p>Gjendja: {person.gjendja}</p>
+          <p>Koha: {person.time}</p>
+          <p>Menyra: {person.method}</p>
+          <p>Gjendja: {person.condition}</p>
         </>
       )}
-      {personType === "deshmitaret" && (
+      {personType === "witnesses" && (
         <>
-          <p>A vëzhgohet: {person.vezhgohet ? "Po" : "Jo"}</p>
-          <p>A dyshohet: {person.dyshohet ? "Po" : "Jo"}</p>
-          <p>Raporti me viktimën: {person.raportiMeViktimen}</p>
+          <p>A vëzhgohet: {person.isUnderObservation ? "Po" : "Jo"}</p>
+          <p>A dyshohet: {person.isSuspected ? "Po" : "Jo"}</p>
+          <p>Raporti me viktimën: {person.relationToVictim}</p>
         </>
       )}
-      {personType === "teDyshuarit" && <p>Dyshimi: {person.dyshimi}</p>}
+      {personType === "suspects" && <p>Dyshimi: {person.suspicion}</p>}
     </div>
   );
 };

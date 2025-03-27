@@ -21,9 +21,9 @@ const Case = () => {
     status: "",
     dateOpened: "",
     dateClosed: "",
-    viktimat: [],
-    deshmitaret: [],
-    teDyshuarit: [],
+    victims: [],
+    witnesses: [],
+    suspects: [],
   });
 
   const handleOpen = () => {
@@ -76,26 +76,26 @@ const Case = () => {
           <button
             onClick={() => {
               handleOpen();
-              setPersonType("viktimat");
+              setPersonType("victims");
             }}
           >
-            {(caseData.viktimat?.length || 0)} Viktima
+            {(caseData.victims?.length || 0)} Viktima
           </button>
           <button
             onClick={() => {
               handleOpen();
-              setPersonType("deshmitaret");
+              setPersonType("witnesses");
             }}
           >
-            {(caseData.deshmitaret?.length || 0)} Deshmitare
+            {(caseData.witnesses?.length || 0)} Deshmitare
           </button>
           <button
             onClick={() => {
               handleOpen();
-              setPersonType("teDyshuarit");
+              setPersonType("suspects");
             }}
           >
-            {(caseData.teDyshuarit?.length || 0)} Te Dyshuar
+            {(caseData.suspects?.length || 0)} Te Dyshuar
           </button>
         </div>
       </div>
