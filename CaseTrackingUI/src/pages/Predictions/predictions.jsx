@@ -9,7 +9,7 @@ const SuspectPredictionApp = () => {
     useEffect(() => {
         const fetchSuspects = async () => {
             try {
-                const response = await axios.get('https://localhost:7066/api/Suspect/suspects');
+                const response = await axios.get('http://localhost:5185/api/Suspect/suspects');
                 setSuspects(response.data);
                 response.data.forEach(suspect => getPrediction(suspect));
             } catch (error) {
@@ -31,15 +31,15 @@ const SuspectPredictionApp = () => {
     }, []);
 
     const mapToPredictionInput = (suspect) => ({
-        age: 30,  // Placeholder; adjust based on your data
+        age: 30, 
         previous_criminal_record: suspect.background.includes('criminal') ? 1 : 0,
-        history_of_violence: 0,  // Adjust if you have data
-        alcohol_use: 0,  // Adjust if you have data
+        history_of_violence: 0, 
+        alcohol_use: 0,  
         mental_health_issues: suspect.mentalState === 'Unstable' ? 1 : 0,
-        education_level: 'College',  // Adjust if you have data
-        social_media_activity: 1,  // Adjust if you have data
-        income_stress: 0,  // Adjust if you have data
-        relation: 'acquaintance'  // Adjust if you have data
+        education_level: 'College',  
+        social_media_activity: 1,
+        income_stress: 0, 
+        relation: 'acquaintance' 
     });
 
     return (

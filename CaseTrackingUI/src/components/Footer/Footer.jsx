@@ -1,6 +1,5 @@
 import "./styles.scss";
 import Typography from "@mui/material/Typography";
-import { Link } from "react-router-dom";
 
 export default function Footer() {
   function Copyright(props) {
@@ -24,15 +23,15 @@ export default function Footer() {
         <ul className="list">
           <li>
             {" "}
-            <a href="#">About us </a>{" "}
+            <button className="link-button" onClick={() => alert('About us clicked')}>About us</button>{" "}
           </li>
           <li>
             {" "}
-            <a href="#"> Terms and conditions </a>{" "}
+            <button className="link-button" onClick={() => alert('Terms and conditions clicked')}> Terms and conditions </button>{" "}
           </li>
           <li>
             {" "}
-            <a href="#"> Privacy Policy </a>{" "}
+            <button className="link-button" onClick={() => alert('Privacy Policy clicked')}> Privacy Policy </button>{" "}
           </li>
         </ul>
         <Copyright sx={{ mt: 8, mb: 4, color: "#C8D4FF" }} />

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import "../../../styles/popup.scss";
 import agent from "../../../api/agents";
 import ImageCard from "./ImageCard";
@@ -7,6 +7,7 @@ import ImageUpload from "./ImageUpload";
 const Images = ({ caseId, setIsFileOpen, isFileOpen }) => {
   const [images, setImages] = useState([]);
   const [isFileUploadOpen, setIsFileUploadOpen] = useState(false);
+
   const handleClose = () => {
     setIsFileOpen((prev) => !prev);
   };
@@ -14,12 +15,16 @@ const Images = ({ caseId, setIsFileOpen, isFileOpen }) => {
   const handleOpen = () => {
     setIsFileUploadOpen((prev) => !prev);
   };
-  useEffect(() => {
-    console.log("i run");
+
+  const fetchImages = useCallback(() => {
     agent.Files.getCaseImages(caseId).then((response) => {
       setImages(response);
     });
-  }, []);
+  }, [caseId]);
+
+  useEffect(() => {
+    fetchImages();
+  }, [fetchImages]);
 
   return isFileOpen ? (
     <div className="popup">
@@ -40,11 +45,10 @@ const Images = ({ caseId, setIsFileOpen, isFileOpen }) => {
         caseId={caseId}
         setIsFileUploadOpen={setIsFileUploadOpen}
         isFileUploadOpen={isFileUploadOpen}
+        onUploadSuccess={fetchImages} 
       />
     </div>
-  ) : (
-    ""
-  );
+  ) : null;
 };
 
 export default Images;

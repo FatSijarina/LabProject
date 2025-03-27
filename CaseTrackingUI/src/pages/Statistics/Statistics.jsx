@@ -177,7 +177,6 @@ const Statistics = () => {
       id: "UY",
       value: 51.9,
     },
-    ,
     {
       id: "RUS",
       value: 39.7,
