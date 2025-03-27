@@ -3,7 +3,6 @@ const ProvaCard = ({ Id, Name, RetrievalTime, Location, Attachment }) => {
   return ( 
     <div className="card">
       <div className="card-text">
-        <p className="card-id">ID: {Id}</p>
         <h2 className="card-title">{Name}</h2>
         <p className="card-details">{RetrievalTime}</p>
         <p className="card-details">{Location}</p>
