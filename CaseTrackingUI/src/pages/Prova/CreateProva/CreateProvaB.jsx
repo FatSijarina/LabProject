@@ -40,7 +40,7 @@ const CreateProvaB = ({ setIsOpen, isOpen }) => {
 
   return isOpen ? (
     <div className="popup">
-      <div className="popup__inner">
+      <div className="popup__inner" style={{ maxHeight: "90vh", overflowY: "auto", width: "90vw", padding: "20px" }}>
         <button className="popup__close-button" onClick={handleClose}>
           X
         </button>

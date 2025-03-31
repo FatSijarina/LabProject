@@ -2,22 +2,22 @@ import { useState } from "react";
 import "../../../styles/popup.scss";
 import {
   FormInput,
-  FormSelectBool
+  FormSelectBool,
 } from "../../../components/formComponents/FormComponents";
 import agent from "../../../api/agents";
 
 const CreateProvaF = ({ setIsOpen, isOpen }) => {
   const [provaF, setProvaF] = useState({
-    Name: "",
-    RetreivalTime: "",
-    Location: "",
-    Attachment: "",
-    PersonId: "",
-    UsedInCrime: false,
-    DangerLevel: "",
-    Classification: "",
-    RequiresExamination: false,
-    ContainsBiologicalTraces: false
+    name: "",
+    retrievalTime: new Date().toISOString(), // Set default to current time
+    location: "",
+    attachment: "",
+    personId: 1, // Default valid personId (ensure this is selectable)
+    usedInCrime: false,
+    dangerLevel: "",
+    classification: "",
+    requiresExamination: false,
+    containsBiologicalTraces: false,
   });
 
   const handleClose = () => {
@@ -25,103 +25,107 @@ const CreateProvaF = ({ setIsOpen, isOpen }) => {
   };
 
   const handleChange = (e) => {
-    const name = e.target.name;
-    let value = e.target.value;
-    if(value === "true"){
-      value = true
+    const { name, value } = e.target;
+    let newValue = value;
+
+    if (name === "personId") {
+      newValue = parseInt(value, 10) || ""; // Ensure it's an integer
+    } else if (value === "true") {
+      newValue = true;
+    } else if (value === "false") {
+      newValue = false;
     }
-    else if(value === "false"){
-      value = false
-    }
-    setProvaF((prev) => {
-      return { ...prev, [name]: value };
-    });
+
+    setProvaF((prev) => ({
+      ...prev,
+      [name]: newValue,
+    }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(provaF);
-    agent.ProvatFizike.create(provaF).catch(function (error) {
-      console.log(error.response.data);
-    });
+
+    try {
+      await agent.ProvatFizike.create(provaF);
+      window.location.reload(); // Reload the page after successful submission
+    } catch (error) {
+      console.error("Error submitting form:", error.response?.data || error);
+    }
   };
 
   return isOpen ? (
     <div className="popup">
-      <div className="popup__inner">
+      <div className="popup__inner" style={{ maxHeight: "90vh", overflowY: "auto", width: "90vw", padding: "20px" }}>
         <button className="popup__close-button" onClick={handleClose}>
           X
         </button>
-        <h1>Shto Provë Fizike</h1>
+        <h1>Add Physical Evidence</h1>
         <form className="popup__form" onSubmit={handleSubmit}>
-        <FormInput
+          <FormInput
             label="Name"
             type="text"
-            name="Name"
+            name="name"
             placeholder="Name"
             onChange={handleChange}
           />
           <FormInput
             label="Retrieval Time"
-            type="datetime"
-            name="RetrievalTime"
+            type="datetime-local"
+            name="retrievalTime"
             placeholder="Retrieval Time"
             onChange={handleChange}
           />
           <FormInput
             label="Location"
             type="text"
-            name="Location"
+            name="location"
             placeholder="Location"
             onChange={handleChange}
           />
           <FormInput
             label="Attachment"
             type="text"
-            name="Attachment"
+            name="attachment"
             placeholder="Attachment"
             onChange={handleChange}
           />
           <FormInput
-            label="PersonId"
-            type="text"
-            name="PersonId"
-            placeholder="PersonId"
+            label="Person ID"
+            type="number"
+            name="personId"
+            placeholder="Person ID"
             onChange={handleChange}
           />
           <FormSelectBool
             label="Used in crime"
-            type="radio"
-            name="UsedInCrime"
+            name="usedInCrime"
             onChange={handleChange}
           />
           <FormInput
             label="Danger Level"
             type="text"
-            name="DangerLevel"
+            name="dangerLevel"
             placeholder="Danger Level"
             onChange={handleChange}
           />
           <FormInput
             label="Classification"
             type="text"
-            name="Classification"
+            name="classification"
             placeholder="Classification"
             onChange={handleChange}
           />
           <FormSelectBool
             label="Requires examination"
-            type="radio"
-            name="RequiresExamination"
+            name="requiresExamination"
             onChange={handleChange}
           />
           <FormSelectBool
             label="Contains biological traces"
-            type="radio"
-            name="ContainsBiologicalTraces"
+            name="containsBiologicalTraces"
             onChange={handleChange}
           />
-          <button type="submit">Add physical trace</button>
+          <button type="submit">Add Physical Evidence</button>
         </form>
       </div>
     </div>
