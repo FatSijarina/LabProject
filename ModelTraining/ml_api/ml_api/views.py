@@ -22,8 +22,8 @@ profession_mapping = {"construction worker": 0, "unemployed": 1, "office worker"
 
 @api_view(['POST'])
 def predict(request):
-    if model is None or scaler is None:
-        return Response({"error": "Model or scaler not loaded. Check the file path."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    if model is None:
+        return Response({"error": "Model not loaded. Check the file path."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     try:
         try:
@@ -43,13 +43,20 @@ def predict(request):
             return Response({"error": "Invalid categorical inputs."}, status=status.HTTP_400_BAD_REQUEST)
 
         input_data = np.array([[suspicion_level, previous_criminal_record, forensic_evidence, mental_state, profession]])
-        input_data = scaler.transform(input_data)  
 
-        probabilities = model.predict_proba(input_data)[0]
-        crime_likelihood = int(probabilities[1] >= THRESHOLD)  
-        confidence_score = round(probabilities[1] * 100, 2)  
+        proba = model.predict_proba(input_data)[0]  
+        prediction = np.argmax(proba)  
+        confidence = proba[prediction]  
 
-        return Response({"crime_likelihood": crime_likelihood, "confidence": confidence_score}, status=status.HTTP_200_OK)
+        confidence_threshold = 0.7
+        confident = confidence >= confidence_threshold
+
+        return Response({
+            "crime_likelihood": int(prediction),
+            "confidence_score": round(confidence * 100, 2),  
+            "is_confident": confident
+        }, status=status.HTTP_200_OK)
 
     except Exception as e:
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+

@@ -21,10 +21,13 @@ const SuspectPredictionApp = () => {
             const input = mapToPredictionInput(suspect);
             try {
                 const predictionResponse = await axios.post('http://127.0.0.1:8000/predict/', input);
-                const { crime_likelihood, confidence } = predictionResponse.data;
-                setPredictions(prev => ({
-                    ...prev,
-                    [suspect.id]: { crime_likelihood, confidence }
+                setPredictions(prev => ({ 
+                    ...prev, 
+                    [suspect.id]: { 
+                        crime_likelihood: predictionResponse.data.crime_likelihood, 
+                        confidence_score: predictionResponse.data.confidence_score, 
+                        is_confident: predictionResponse.data.is_confident 
+                    }
                 }));
             } catch (error) {
                 console.error(`Error predicting for suspect ${suspect.id}:`, error);
@@ -76,9 +79,15 @@ const SuspectPredictionApp = () => {
                         </ul>
                         <p className={`prediction ${predictions[suspect.id]?.crime_likelihood === 1 ? 'likely' : 'unlikely'}`}>
                             {predictions[suspect.id]?.crime_likelihood === 1 ? 'Likely Guilty' : 'Unlikely Guilty'}
-                            {predictions[suspect.id]?.confidence && 
-                                ` (Confidence: ${predictions[suspect.id]?.confidence}%)`}
                         </p>
+                        <p className={`confidence ${predictions[suspect.id]?.is_confident ? 'confident' : 'not-confident'}`}>
+                            {predictions[suspect.id]?.confidence_score ? 
+                                `Confidence: ${predictions[suspect.id].confidence_score}%` : 
+                                'Confidence: Not Available'}
+                        </p>
+                        {predictions[suspect.id]?.confidence_score < 70 && predictions[suspect.id]?.confidence_score !== undefined && (
+                            <p className="not-confident">Not Confident (Below Threshold)</p>
+                        )}
                     </div>
                 ))}
             </div>
