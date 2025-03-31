@@ -9,7 +9,7 @@ const SuspectPredictionApp = () => {
     useEffect(() => {
         const fetchSuspects = async () => {
             try {
-                const response = await axios.get('http://localhost:5185/api/Suspect/suspects');
+                const response = await axios.get('https://localhost:7066/api/Suspect/suspects');
                 setSuspects(response.data);
                 response.data.forEach(suspect => getPrediction(suspect));
             } catch (error) {
@@ -21,7 +21,11 @@ const SuspectPredictionApp = () => {
             const input = mapToPredictionInput(suspect);
             try {
                 const predictionResponse = await axios.post('http://127.0.0.1:8000/predict/', input);
-                setPredictions(prev => ({ ...prev, [suspect.id]: predictionResponse.data }));
+                const { crime_likelihood, confidence } = predictionResponse.data;
+                setPredictions(prev => ({
+                    ...prev,
+                    [suspect.id]: { crime_likelihood, confidence }
+                }));
             } catch (error) {
                 console.error(`Error predicting for suspect ${suspect.id}:`, error);
             }
@@ -31,16 +35,18 @@ const SuspectPredictionApp = () => {
     }, []);
 
     const mapToPredictionInput = (suspect) => ({
-        age: 30, 
-        previous_criminal_record: suspect.background.includes('criminal') ? 1 : 0,
-        history_of_violence: 0, 
-        alcohol_use: 0,  
-        mental_health_issues: suspect.mentalState === 'Unstable' ? 1 : 0,
-        education_level: 'College',  
-        social_media_activity: 1,
-        income_stress: 0, 
-        relation: 'acquaintance' 
+        suspicion: getSuspicionLevel(suspect.suspicion),
+        previous_criminal_record: suspect.background.toLowerCase().includes('criminal record') ? 1 : 0,
+        forensic_evidence: suspect.biologicalTraces.length > 0 ? 1 : 0,
+        mental_state: suspect.mentalState.toLowerCase(),
+        profession: suspect.profession.toLowerCase()
     });
+
+    const getSuspicionLevel = (suspicion) => {
+        if (suspicion.toLowerCase().includes('high')) return 'high';
+        if (suspicion.toLowerCase().includes('moderate')) return 'moderate';
+        return 'low';
+    };
 
     return (
         <div className="dashboard-container">
@@ -49,17 +55,35 @@ const SuspectPredictionApp = () => {
                 {suspects.map(suspect => (
                     <div key={suspect.id} className="suspect-card">
                         <h2>{suspect.name}</h2>
+                        <p><strong>Gender:</strong> {suspect.gender}</p>
                         <p><strong>Profession:</strong> {suspect.profession}</p>
+                        <p><strong>Status:</strong> {suspect.status}</p>
+                        <p><strong>Residence:</strong> {suspect.residence}</p>
+                        <p><strong>Mental State:</strong> {suspect.mentalState}</p>
                         <p><strong>Background:</strong> {suspect.background}</p>
                         <p><strong>Suspicion Level:</strong> {suspect.suspicion}</p>
-                        <p className={`prediction ${predictions[suspect.id] === 1 ? 'likely' : 'unlikely'}`}>
-                            {predictions[suspect.id] === 1 ? 'Likely Guilty' : 'Unlikely Guilty'}
+                        <p><strong>Statements:</strong></p>
+                        <ul>
+                            {suspect.statements.map((statement, index) => (
+                                <li key={index}>{statement.dateGiven}: {statement.content}</li>
+                            ))}
+                        </ul>
+                        <p><strong>Forensic Evidence:</strong></p>
+                        <ul>
+                            {suspect.biologicalTraces.map((trace, index) => (
+                                <li key={index}>{trace.name} - {trace.specification}</li>
+                            ))}
+                        </ul>
+                        <p className={`prediction ${predictions[suspect.id]?.crime_likelihood === 1 ? 'likely' : 'unlikely'}`}>
+                            {predictions[suspect.id]?.crime_likelihood === 1 ? 'Likely Guilty' : 'Unlikely Guilty'}
+                            {predictions[suspect.id]?.confidence && 
+                                ` (Confidence: ${predictions[suspect.id]?.confidence}%)`}
                         </p>
                     </div>
                 ))}
             </div>
         </div>
     );
-}    
+};
 
 export default SuspectPredictionApp;
