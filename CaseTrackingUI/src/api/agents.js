@@ -3,7 +3,7 @@ import { store } from '../store/configureStore.ts';
 
 // Axios instance for backend API
 const backendAxios = axios.create({
-  baseURL: "http://localhost:5185/api/",
+  baseURL: "https://localhost:7066/api/",
 });
 
 backendAxios.interceptors.request.use(config => {

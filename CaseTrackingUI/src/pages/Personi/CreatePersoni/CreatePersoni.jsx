@@ -6,7 +6,7 @@ import {
 } from "../../../components/formComponents/FormComponents";
 import agent from "../../../api/agents";
 
-const CreatePersoni = ({ person, personType, setIsOpenP, isOpenP }) => {
+const CreatePersoni = ({ personType, setIsOpenP, isOpenP }) => {
   const [personi, setPersoni] = useState({
     name: "",
     gender: "",
@@ -34,161 +34,84 @@ const CreatePersoni = ({ person, personType, setIsOpenP, isOpenP }) => {
   };
 
   const handleChange = (e) => {
-    const name = e.target.name;
-    let value = e.target.value;
+    const { name, value: rawValue } = e.target;
+    let value = rawValue;
     if (value === "true") value = true;
     else if (value === "false") value = false;
     else if (name === "caseId") value = parseInt(value);
     else if (name === "gender" && value.length > 1) value = value.charAt(0);
-    setPersoni((prev) => {
-      return { ...prev, [name]: value };
-    });
+    setPersoni((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const typeMap = {
+    viktimat: agent.viktimat,
+    victims: agent.viktimat,
+    deshmitaret: agent.deshmitaret,
+    witnesses: agent.deshmitaret,
+    teDyshuarit: agent.teDyshuarit,
+    suspects: agent.teDyshuarit,
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    agent[personType].create(personi).catch(function (error) {
-      console.log(error.response.data);
-    });
+    const service = typeMap[personType];
+    if (!service) {
+      console.error("❌ Invalid personType:", personType);
+      return;
+    }
+    service
+      .create(personi)
+      .then(() => {
+        alert("✅ Person added successfully");
+        window.location.reload();
+      })
+      .catch((err) => {
+        console.error("❌ Submission error:", err.response?.data || err.message);
+        alert("Error creating person. Check the console for details.");
+      });
   };
 
   return isOpenP ? (
     <div className="popup">
       <div className="popup__inner">
-        <button className="popup__close-button" onClick={handleClose}>
-          X
-        </button>
+        <button className="popup__close-button" onClick={handleClose}>X</button>
         <h1>Shto Person</h1>
         <form className="popup__form" onSubmit={handleSubmit}>
-          <FormInput
-            label="Emri"
-            type="text"
-            name="name"
-            placeholder="Emri"
-            onChange={handleChange}
-          />
-          <FormInput
-            label="Gjinia (M/F)"
-            type="text"
-            name="gender"
-            placeholder="M or F"
-            onChange={handleChange}
-          />
-          <FormInput
-            label="Profesioni"
-            type="text"
-            name="profession"
-            placeholder="Profesioni"
-            onChange={handleChange}
-          />
-          <FormInput
-            label="Statusi"
-            type="text"
-            name="status"
-            placeholder="Statusi"
-            onChange={handleChange}
-          />
-          <FormInput
-            label="Vendbanimi"
-            type="text"
-            name="residence"
-            placeholder="Vendbanimi"
-            onChange={handleChange}
-          />
-          <FormInput
-            label="Gjendja Mendore"
-            type="text"
-            name="mentalState"
-            placeholder="Gjendja Mendore"
-            onChange={handleChange}
-          />
-          <FormInput
-            label="E kaluara"
-            type="text"
-            name="background"
-            placeholder="E kaluara"
-            onChange={handleChange}
-          />
-          {personType === "deshmitaret" && (
+          <FormInput label="Emri" name="name" onChange={handleChange} />
+          <FormInput label="Gjinia (M/F)" name="gender" onChange={handleChange} />
+          <FormInput label="Profesioni" name="profession" onChange={handleChange} />
+          <FormInput label="Statusi" name="status" onChange={handleChange} />
+          <FormInput label="Vendbanimi" name="residence" onChange={handleChange} />
+          <FormInput label="Gjendja Mendore" name="mentalState" onChange={handleChange} />
+          <FormInput label="E kaluara" name="background" onChange={handleChange} />
+
+          {["deshmitaret", "witnesses"].includes(personType) && (
             <>
-              <FormInput
-                label="Raporti me viktimen"
-                type="text"
-                name="relationToVictim"
-                placeholder="Raporti me viktimen"
-                onChange={handleChange}
-              />
-              <FormSelectBool
-                label="A vezhgohet"
-                type="radio"
-                name="isUnderObservation"
-                onChange={handleChange}
-              />
-              <FormSelectBool
-                label="A dyshohet"
-                type="radio"
-                name="isSuspected"
-                onChange={handleChange}
-              />
+              <FormInput label="Raporti me viktimen" name="relationToVictim" onChange={handleChange} />
+              <FormSelectBool label="A vezhgohet" name="isUnderObservation" onChange={handleChange} />
+              <FormSelectBool label="A dyshohet" name="isSuspected" onChange={handleChange} />
             </>
           )}
-          {personType === "viktimat" && (
+
+          {["viktimat", "victims"].includes(personType) && (
             <>
-              <FormInput
-                label="Vendi"
-                type="text"
-                name="location"
-                placeholder="Vendi"
-                onChange={handleChange}
-              />
-              <FormInput
-                label="Koha"
-                type="datetime-local"
-                name="time"
-                placeholder="Koha"
-                onChange={handleChange}
-              />
-              <FormInput
-                label="Menyra"
-                type="text"
-                name="method"
-                placeholder="Menyra"
-                onChange={handleChange}
-              />
-              <FormInput
-                label="Gjendja"
-                type="text"
-                name="condition"
-                placeholder="Gjendja"
-                onChange={handleChange}
-              />
+              <FormInput label="Vendi" name="location" onChange={handleChange} />
+              <FormInput label="Koha" type="datetime-local" name="time" onChange={handleChange} />
+              <FormInput label="Menyra" name="method" onChange={handleChange} />
+              <FormInput label="Gjendja" name="condition" onChange={handleChange} />
             </>
           )}
-          {personType === "teDyshuarit" && (
-            <>
-              <FormInput
-                label="Dyshimi"
-                type="text"
-                name="suspicion"
-                placeholder="Dyshimi"
-                onChange={handleChange}
-              />
-            </>
+
+          {["teDyshuarit", "suspects"].includes(personType) && (
+            <FormInput label="Dyshimi" name="suspicion" onChange={handleChange} />
           )}
-          <FormInput
-            label="Case id"
-            type="number"
-            name="caseId"
-            placeholder="Case id"
-            onChange={handleChange}
-          />
+
+          <FormInput label="Case ID" name="caseId" type="number" onChange={handleChange} />
           <button type="submit">Shto Personin</button>
         </form>
       </div>
     </div>
-  ) : (
-    ""
-  );
+  ) : null;
 };
 
 export default CreatePersoni;
